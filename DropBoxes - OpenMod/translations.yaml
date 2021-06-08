@@ -1,0 +1,10 @@
+Commands:
+  Success:
+    LootBoxes: "Available loot boxes: {LootBoxes:x{Amount} {Name}|, |, and }"
+    Unbox: "You have unboxed a {Item.Asset.ItemName} from your {LootBox.Name}!"
+    GiveBox: "You have given {User.DisplayName} a {LootBox.Name}."
+    GiveBoxById: "You have given {SteamId} a {LootBox.Name}."
+    ReceivedBox: "You have been given a {LootBox.Name}!"
+  Errors:
+    UnknownLootBox: "Unknown loot box: {Input}"
+    NoLootBox: "You do not have a {LootBox.Name}."
