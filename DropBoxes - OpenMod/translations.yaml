@@ -1,3 +1,6 @@
+Natural:
+  FoundLootBox: "You have found a {LootBox.Name}!"
+
 Commands:
   Success:
     LootBoxes: "Available loot boxes: {LootBoxes:x{Amount} {Name}|, |, and }"
