@@ -11,8 +11,10 @@ namespace DropBoxes.Configuration
 
         public float MegaZombieKill { get; set; } = 0;
 
-        public float FoundPlants { get; set; } = 0;
+        public float AnimalKill { get; set; } = 0;
 
-        public float FoundResources { get; set; }
+        public float HarvestPlant { get; set; } = 0;
+
+        public float HarvestResource { get; set; } = 0;
     }
 }
