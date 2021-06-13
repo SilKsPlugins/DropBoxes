@@ -39,7 +39,7 @@ jobs:
       run: dotnet restore
       
     - name: Update versions
-      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" \"${{ env.PLUGIN_NAME }} - OpenMod/${{ env.PLUGIN_NAME }} - OpenMod.csproj\" \"${{ env.PLUGIN_NAME }} - Rocket/${{ env.PLUGIN_NAME }} - Rocket.csproj\""
+      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" \"${{ env.PLUGIN_NAME }} - OpenMod/${{ env.PLUGIN_NAME }} - OpenMod.csproj\""
     
     - name: Build
       run: dotnet build --configuration Release --no-restore
