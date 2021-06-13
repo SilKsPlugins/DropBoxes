@@ -2,6 +2,7 @@
 using DropBoxes.API;
 using DropBoxes.Configuration;
 using JetBrainsAnnotations::JetBrains.Annotations;
+using Microsoft.Extensions.Configuration;
 using OpenMod.API.Commands;
 using SilK.Unturned.Extras.Configuration;
 using System;
@@ -12,12 +13,12 @@ namespace DropBoxes.LootBoxes
     [UsedImplicitly]
     public class LootBoxAssetCommandParameterResolveProvider : ICommandParameterResolveProvider
     {
-        private readonly IConfigurationParser<DropBoxesConfiguration> _configuration;
+        private readonly IConfigurationAccessor<DropBoxesPlugin> _configurationAccessor;
 
         public LootBoxAssetCommandParameterResolveProvider(
-            IConfigurationParser<DropBoxesConfiguration> configuration)
+            IConfigurationAccessor<DropBoxesPlugin> configurationAccessor)
         {
-            _configuration = configuration;
+            _configurationAccessor = configurationAccessor;
         }
 
         public bool Supports(Type type)
@@ -42,11 +43,10 @@ namespace DropBoxes.LootBoxes
                 throw new ArgumentException("The given type is not supported", nameof(type));
             }
 
-            var configuration = _configuration.Instance;
+            var configuration = _configurationAccessor.GetInstance().Get<DropBoxesConfiguration>();
 
             return Task.FromResult<object?>(configuration.GetLootBoxAssetById(input) ??
                                             configuration.GetLootBoxAssetByName(input));
         }
-
     }
 }
