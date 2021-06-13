@@ -43,7 +43,7 @@ namespace DropBoxes.Configuration
 
             for (var i = 0; i < weights.Length; i++)
             {
-                if (weights[i] < rng)
+                if (rng < weights[i])
                 {
                     return rewards[i];
                 }
