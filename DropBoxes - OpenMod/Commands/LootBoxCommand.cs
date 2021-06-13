@@ -20,6 +20,11 @@ namespace DropBoxes.Commands
 
         protected async Task<LootBoxAsset> GetLootBoxAsset(int index)
         {
+            if (Context.Parameters.Length <= index)
+            {
+                throw new CommandWrongUsageException(Context);
+            }
+
             try
             {
                 return await Context.Parameters.GetAsync<LootBoxAsset>(index);
