@@ -48,6 +48,12 @@
 		<PackageReference Include="SilK.Unturned.Extras" Version="1.6.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="product.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
 		<ItemGroup>
 			<ReferencePath Condition="'%(FileName)' == 'JetBrains.Annotations'">
