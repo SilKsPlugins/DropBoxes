@@ -12,7 +12,7 @@ using System.Linq;
 namespace DropBoxes.Commands
 {
     [Command("boxes", Priority = Priority.High)]
-    [CommandDescription("View the loot boxes you have access to.")]
+    [CommandDescription("View your loot boxes.")]
     [CommandActor(typeof(UnturnedUser))]
     public class CBoxes : UnturnedCommand
     {
