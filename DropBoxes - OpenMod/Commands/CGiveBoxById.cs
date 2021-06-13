@@ -9,8 +9,8 @@ using System;
 namespace DropBoxes.Commands
 {
     [Command("giveboxbyid", Priority = Priority.High)]
-    [CommandSyntax("<player id> <box>")]
-    [CommandDescription("Give the player with the ID a loot box.")]
+    [CommandSyntax("<steam id> <box>")]
+    [CommandDescription("Give the player with the steam ID a loot box.")]
     public class CGiveBoxById : LootBoxCommand
     {
         private readonly ILootBoxManager _lootBoxManager;
