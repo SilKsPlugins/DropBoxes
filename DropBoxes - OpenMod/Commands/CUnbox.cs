@@ -9,8 +9,8 @@ using System;
 namespace DropBoxes.Commands
 {
     [Command("unbox", Priority = Priority.High)]
-    [CommandSyntax("<box id>")]
-    [CommandDescription("Unbox a loot box with the given ID.")]
+    [CommandSyntax("<box>")]
+    [CommandDescription("Unbox a loot box.")]
     [CommandActor(typeof(UnturnedUser))]
     public class CUnbox : LootBoxCommand
     {
