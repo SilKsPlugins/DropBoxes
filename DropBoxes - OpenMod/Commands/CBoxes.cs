@@ -38,7 +38,7 @@ namespace DropBoxes.Commands
                 {
                     Instance = x,
                     Asset = x.GetAsset(_serviceProvider)
-                }).Where(x => x.Asset != null)
+                }).Where(x => x.Asset != null && x.Instance.Amount > 0)
                 .Select(x => new
                 {
                     x.Asset!.BoxId,
