@@ -1,5 +1,6 @@
 ﻿using OpenMod.Extensions.Games.Abstractions.Items;
 using OpenMod.Unturned.Items;
+using SDG.Unturned;
 
 namespace DropBoxes.Items
 {
@@ -10,7 +11,7 @@ namespace DropBoxes.Items
             ItemQuality = itemAsset.MaxQuality ?? 100;
             ItemDurability = itemAsset.MaxDurability ?? 100;
             ItemAmount = itemAsset.MaxAmount ?? 1;
-            StateData = null;
+            StateData = itemAsset.ItemAsset.getState(EItemOrigin.ADMIN);
         }
 
         public double ItemQuality { get; }
@@ -21,5 +22,4 @@ namespace DropBoxes.Items
 
         public byte[]? StateData { get; }
     }
-}
 }
