@@ -9,8 +9,7 @@ namespace DropBoxes
     [UsedImplicitly]
     public class ContainerConfigurator : IContainerConfigurator
     {
-        public void ConfigureContainer(IOpenModServiceConfigurationContext openModStartupContext,
-            ContainerBuilder containerBuilder)
+        public void ConfigureContainer(IOpenModServiceConfigurationContext openModStartupContext, ContainerBuilder containerBuilder)
         {
             containerBuilder.AddPomeloMySqlConnectorResolver();
         }
