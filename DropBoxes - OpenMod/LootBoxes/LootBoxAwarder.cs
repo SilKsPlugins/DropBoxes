@@ -114,6 +114,8 @@ namespace DropBoxes.LootBoxes
 
         public async UniTask HandleEventAsync(object? sender, UnturnedPlayerStatIncrementedEvent @event)
         {
+            await UniTask.SwitchToThreadPool();
+
             var user = _userDirectory.GetUser(@event.Player.Player);
 
             var lootBoxes = await GetLootBoxesToGive(user, @event.Stat);
