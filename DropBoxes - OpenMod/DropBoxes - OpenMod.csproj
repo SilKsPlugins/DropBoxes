@@ -21,6 +21,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="config.yaml" />
+	  <None Remove="translations.yaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="config.yaml" />
+	  <EmbeddedResource Include="translations.yaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.16">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,6 +43,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="OpenMod.Unturned.Redist" Version="3.21.18" />
 		<PackageReference Include="SilK.OpenMod.EntityFrameworkCore" Version="1.0.4" />
 		<PackageReference Include="SilK.Unturned.Extras" Version="1.6.1" />
 	</ItemGroup>
