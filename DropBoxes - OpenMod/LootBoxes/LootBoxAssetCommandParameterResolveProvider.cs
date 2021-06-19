@@ -1,7 +1,5 @@
-﻿extern alias JetBrainsAnnotations;
-using DropBoxes.API;
+﻿using DropBoxes.API;
 using DropBoxes.Configuration;
-using JetBrainsAnnotations::JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using OpenMod.API.Commands;
 using SilK.Unturned.Extras.Configuration;
@@ -10,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace DropBoxes.LootBoxes
 {
-    [UsedImplicitly]
     public class LootBoxAssetCommandParameterResolveProvider : ICommandParameterResolveProvider
     {
         private readonly IConfigurationAccessor<DropBoxesPlugin> _configurationAccessor;
