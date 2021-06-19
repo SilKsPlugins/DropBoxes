@@ -1,4 +1,5 @@
 ﻿using DropBoxes.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using OpenMod.API.Commands;
@@ -13,9 +14,12 @@ namespace DropBoxes.Commands
     {
         protected readonly IStringLocalizer StringLocalizer;
 
+        private readonly IConfiguration _configuration;
+
         protected LootBoxCommand(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             StringLocalizer = serviceProvider.GetRequiredService<IStringLocalizer>();
+            _configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
         protected async Task<LootBoxAsset> GetLootBoxAsset(int index)
@@ -25,15 +29,14 @@ namespace DropBoxes.Commands
                 throw new CommandWrongUsageException(Context);
             }
 
-            try
-            {
-                return await Context.Parameters.GetAsync<LootBoxAsset>(index);
-            }
-            catch (CommandParameterParseException)
-            {
-                throw new UserFriendlyException(StringLocalizer["Commands:Errors:UnknownLootBox",
-                    new { Input = await Context.Parameters.GetAsync<string>(index) }]);
-            }
+            var input = await Context.Parameters.GetAsync<string>(index);
+
+            var configuration = _configuration.Get<DropBoxesConfiguration>();
+
+            return configuration.GetLootBoxAssetById(input) ??
+                   configuration.GetLootBoxAssetByName(input) ??
+                   throw new UserFriendlyException(StringLocalizer["Commands:Errors:UnknownLootBox",
+                       new {Input = input}]);
         }
     }
 }
