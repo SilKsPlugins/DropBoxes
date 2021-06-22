@@ -1,18 +1,19 @@
 ﻿using DropBoxes.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using SilK.OpenMod.EntityFrameworkCore;
+using OpenMod.EntityFrameworkCore;
+using OpenMod.EntityFrameworkCore.Configurator;
 using System;
 
 namespace DropBoxes.Database
 {
-    public class DropBoxesDbContext : OpenModPomeloDbContext<DropBoxesDbContext>
+    public class DropBoxesDbContext : OpenModDbContext<DropBoxesDbContext>
     {
         public DropBoxesDbContext(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
 
-        public DropBoxesDbContext(DbContextOptions<DropBoxesDbContext> options,
-            IServiceProvider serviceProvider) : base(options, serviceProvider)
+        public DropBoxesDbContext(IDbContextConfigurator configurator, IServiceProvider serviceProvider) :
+            base(configurator, serviceProvider)
         {
         }
 

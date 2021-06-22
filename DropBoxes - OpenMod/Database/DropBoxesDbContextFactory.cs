@@ -1,8 +1,8 @@
-﻿using SilK.OpenMod.EntityFrameworkCore;
+﻿using OpenMod.EntityFrameworkCore.MySql;
 
 namespace DropBoxes.Database
 {
-    public class DropBoxesDbContextFactory : OpenModPomeloDbContextFactory<DropBoxesDbContext>
+    public class DropBoxesDbContextFactory : OpenModMySqlDbContextFactory<DropBoxesDbContext>
     {
     }
 }

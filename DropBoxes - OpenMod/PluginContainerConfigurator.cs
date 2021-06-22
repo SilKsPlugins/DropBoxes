@@ -1,9 +1,8 @@
 ﻿extern alias JetBrainsAnnotations;
 using DropBoxes.Database;
 using JetBrainsAnnotations::JetBrains.Annotations;
-using Microsoft.Extensions.DependencyInjection;
 using OpenMod.API.Plugins;
-using OpenMod.EntityFrameworkCore.Extensions;
+using OpenMod.EntityFrameworkCore.MySql.Extensions;
 
 namespace DropBoxes
 {
@@ -12,8 +11,7 @@ namespace DropBoxes
     {
         public void ConfigureContainer(IPluginServiceConfigurationContext context)
         {
-            context.ContainerBuilder.AddEntityFrameworkCoreMySql();
-            context.ContainerBuilder.AddDbContext<DropBoxesDbContext>(ServiceLifetime.Transient);
+            context.ContainerBuilder.AddMySqlDbContext<DropBoxesDbContext>();
         }
     }
 }
