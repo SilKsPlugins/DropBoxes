@@ -9,6 +9,8 @@ namespace DropBoxes.Configuration
     [Serializable]
     public class DropBoxesConfiguration
     {
+        public string IconUrl { get; set; } = "";
+
         public List<LootBoxAsset> LootBoxes { get; set; } = new();
 
         public LootBoxAsset? GetLootBoxAssetById(string id)

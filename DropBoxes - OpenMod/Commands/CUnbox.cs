@@ -1,9 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
 using DropBoxes.API;
+using DropBoxes.Chat;
+using DropBoxes.Configuration;
 using OpenMod.API.Commands;
 using OpenMod.API.Prioritization;
 using OpenMod.Core.Commands;
 using OpenMod.Unturned.Users;
+using SilK.Unturned.Extras.Configuration;
 using System;
 
 namespace DropBoxes.Commands
@@ -16,12 +19,15 @@ namespace DropBoxes.Commands
     {
         private readonly ILootBoxManager _lootBoxManager;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IConfigurationParser<DropBoxesConfiguration> _configuration;
 
         public CUnbox(ILootBoxManager lootBoxManager,
-            IServiceProvider serviceProvider) : base(serviceProvider)
+            IServiceProvider serviceProvider,
+            IConfigurationParser<DropBoxesConfiguration> configuration) : base(serviceProvider)
         {
             _lootBoxManager = lootBoxManager;
             _serviceProvider = serviceProvider;
+            _configuration = configuration;
         }
 
         protected override async UniTask OnExecuteAsync()
@@ -42,8 +48,9 @@ namespace DropBoxes.Commands
                                throw new Exception(
                                    $"Could not give user {user.SteamId.m_SteamID} loot box {lootBoxAsset.BoxId}.");
 
-            await PrintAsync(
-                StringLocalizer["Commands:Success:Unbox", new {itemInstance.Item, LootBox = lootBoxAsset}]);
+            await this.PrintMessageWithIconAsync(
+                StringLocalizer["Commands:Success:Unbox", new {itemInstance.Item, LootBox = lootBoxAsset}],
+                _configuration.Instance.IconUrl);
         }
     }
 }

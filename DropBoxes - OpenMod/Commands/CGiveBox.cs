@@ -1,9 +1,12 @@
 ﻿extern alias JetBrainsAnnotations;
 using Cysharp.Threading.Tasks;
 using DropBoxes.API;
+using DropBoxes.Chat;
+using DropBoxes.Configuration;
 using OpenMod.API.Prioritization;
 using OpenMod.Core.Commands;
 using OpenMod.Unturned.Users;
+using SilK.Unturned.Extras.Configuration;
 using System;
 
 namespace DropBoxes.Commands
@@ -14,11 +17,14 @@ namespace DropBoxes.Commands
     public class CGiveBox : LootBoxCommand
     {
         private readonly ILootBoxManager _lootBoxManager;
+        private readonly IConfigurationParser<DropBoxesConfiguration> _configuration;
 
-        public CGiveBox(ILootBoxManager lootBoxManager,
-            IServiceProvider serviceProvider) : base(serviceProvider)
+        public CGiveBox(IServiceProvider serviceProvider,
+            ILootBoxManager lootBoxManager,
+            IConfigurationParser<DropBoxesConfiguration> configuration) : base(serviceProvider)
         {
             _lootBoxManager = lootBoxManager;
+            _configuration = configuration;
         }
 
         protected override async UniTask OnExecuteAsync()
@@ -28,9 +34,13 @@ namespace DropBoxes.Commands
 
             await _lootBoxManager.GiveLootBox(user.SteamId.m_SteamID, lootBoxAsset);
 
-            await PrintAsync(StringLocalizer["Commands:Success:GiveBox", new {User = user, LootBox = lootBoxAsset}]);
+            await this.PrintMessageWithIconAsync(
+                StringLocalizer["Commands:Success:GiveBox", new {User = user, LootBox = lootBoxAsset}],
+                _configuration.Instance.IconUrl);
 
-            await user.PrintMessageAsync(StringLocalizer["Commands:Success:ReceivedBox", new {LootBox = lootBoxAsset}]);
+            await user.PrintMessageWithIconAsync(
+                StringLocalizer["Commands:Success:ReceivedBox", new {LootBox = lootBoxAsset}],
+                _configuration.Instance.IconUrl);
         }
     }
 }

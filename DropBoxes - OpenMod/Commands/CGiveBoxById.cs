@@ -1,8 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using DropBoxes.API;
+using DropBoxes.Chat;
+using DropBoxes.Configuration;
 using OpenMod.API.Prioritization;
 using OpenMod.Core.Commands;
 using OpenMod.Unturned.Users;
+using SilK.Unturned.Extras.Configuration;
 using Steamworks;
 using System;
 
@@ -15,13 +18,16 @@ namespace DropBoxes.Commands
     {
         private readonly ILootBoxManager _lootBoxManager;
         private readonly IUnturnedUserDirectory _unturnedUserDirectory;
+        private readonly IConfigurationParser<DropBoxesConfiguration> _configuration;
 
-        public CGiveBoxById(ILootBoxManager lootBoxManager,
+        public CGiveBoxById(IServiceProvider serviceProvider,
+            ILootBoxManager lootBoxManager,
             IUnturnedUserDirectory unturnedUserDirectory,
-            IServiceProvider serviceProvider) : base(serviceProvider)
+            IConfigurationParser<DropBoxesConfiguration> configuration) : base(serviceProvider)
         {
             _lootBoxManager = lootBoxManager;
             _unturnedUserDirectory = unturnedUserDirectory;
+            _configuration = configuration;
         }
 
         protected override async UniTask OnExecuteAsync()
@@ -33,13 +39,13 @@ namespace DropBoxes.Commands
 
             await _lootBoxManager.GiveLootBox(steamId, lootBoxAsset);
 
-            await PrintAsync(StringLocalizer["Commands:Success:GiveBoxById",
-                new {SteamId = steamId, LootBox = lootBoxAsset}]);
+            await this.PrintMessageWithIconAsync(StringLocalizer["Commands:Success:GiveBoxById",
+                new {SteamId = steamId, LootBox = lootBoxAsset}], _configuration.Instance.IconUrl);
 
             if (user != null)
             {
-                await user.PrintMessageAsync(StringLocalizer["Commands:Success:ReceivedBox",
-                    new {LootBox = lootBoxAsset}]);
+                await user.PrintMessageWithIconAsync(StringLocalizer["Commands:Success:ReceivedBox",
+                    new {LootBox = lootBoxAsset}], _configuration.Instance.IconUrl);
             }
         }
     }

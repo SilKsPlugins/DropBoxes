@@ -23,6 +23,8 @@ database:
   ConnectionStrings:
     default: "Server=127.0.0.1; Port=3306; Database=openmod; User=unturned; Password=password"
 
+IconUrl: "https://docs.silksplugins.com/assets/images/plugins/dropboxes/logo.png"
+
 LootBoxes:
 - BoxId: common
   Name: Common Box

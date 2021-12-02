@@ -1,11 +1,14 @@
 ﻿extern alias JetBrainsAnnotations;
 using Cysharp.Threading.Tasks;
 using DropBoxes.API;
+using DropBoxes.Chat;
+using DropBoxes.Configuration;
 using Microsoft.Extensions.Localization;
 using OpenMod.API.Prioritization;
 using OpenMod.Core.Commands;
 using OpenMod.Unturned.Commands;
 using OpenMod.Unturned.Users;
+using SilK.Unturned.Extras.Configuration;
 using System;
 using System.Linq;
 
@@ -19,14 +22,17 @@ namespace DropBoxes.Commands
         private readonly ILootBoxManager _lootBoxManager;
         private readonly IStringLocalizer _stringLocalizer;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IConfigurationParser<DropBoxesConfiguration> _configuration;
 
-        public CBoxes(ILootBoxManager lootBoxManager,
+        public CBoxes(IServiceProvider serviceProvider,
+            ILootBoxManager lootBoxManager,
             IStringLocalizer stringLocalizer,
-            IServiceProvider serviceProvider) : base(serviceProvider)
+            IConfigurationParser<DropBoxesConfiguration> configuration) : base(serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _lootBoxManager = lootBoxManager;
             _stringLocalizer = stringLocalizer;
-            _serviceProvider = serviceProvider;
+            _configuration = configuration;
         }
 
         protected override async UniTask OnExecuteAsync()
@@ -46,7 +52,9 @@ namespace DropBoxes.Commands
                     x.Instance.Amount
                 }).ToList();
 
-            await PrintAsync(_stringLocalizer["Commands:Success:LootBoxes", new {LootBoxes = lootBoxes}]);
+            await this.PrintMessageWithIconAsync(
+                _stringLocalizer["Commands:Success:LootBoxes", new {LootBoxes = lootBoxes}],
+                _configuration.Instance.IconUrl);
         }
     }
 }
