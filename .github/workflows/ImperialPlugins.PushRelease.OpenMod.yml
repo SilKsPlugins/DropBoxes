@@ -68,6 +68,6 @@ jobs:
           -H 'Sec-Fetch-Mode: cors' \
           -H 'Sec-Fetch-Site: same-site' \
           -H 'TE: trailers' \
-          -H \"X-API-KEY: ${{ env.IP_API_KEY }}\" \
+          -H "X-API-KEY: ${{ env.IP_API_KEY }}" \
           -d @postdata.txt
       shell: bash 
